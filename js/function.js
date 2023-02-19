@@ -21,7 +21,7 @@ isPalindrome('man');
 // Функция извлекающая цифры из строки
 
 function getNumbers(string) {
-  return parseInt(string.replace(/\D+/g, ''));
+  return parseInt(string.replace(/\D+/g, ''), 10);
 }
 getNumbers('test 345');
 getNumbers('1 new test 456');
