@@ -1,14 +1,23 @@
-// Создаем константу-число сгенерированных объектов по ТЗ
 const SIMILAR_PHOTO_DESCRIPTION_COUNT = 25;
 
-// Создаем Id - идентификатор опубликованной фотографии + делаем из него массив
-const uniquePhotoId = [];
+const MIN_URL_COUNT = 1;
+const MAX_URL_COUNT = 25;
 
-// Создаём url -адрес картинки
-const uniquePhotoUrl = [];
+const MIN_PHOTO_ID_COUNT = 1;
+const MAX_PHOTO_ID_COUNT = 25;
 
-// Создаём описание фотографии
-const photoDescription = [
+const MIN_PHOTO_LIKES = 15;
+const MAX_PHOTO_LIKES = 200;
+
+const MIN_COMMENTS_ID_COUNT = 1;
+const MAX_COMMENTS_ID_COUNT = 500;
+
+const MIN_COMMENTS_AVATAR_COUNT = 1;
+const MAX_COMMENTS_AVATAR_COUNT = 6;
+
+const COMMENT_COUNT = 3;
+
+const PHOTO_DESCRIPTIONS = [
   'Не заботьтесь ни о чем, больше улыбайтесь.',
   'Если у вас есть глаза, взгляните на меня сейчас!',
   'Я не толстый. Меня просто легче увидеть, чем всех остальных.',
@@ -18,23 +27,7 @@ const photoDescription = [
   'Когда ты найдешь себя, жизнь меняется.',
 ];
 
-// Создаём число лайков для каждой фотографии
-const photoLikes = [];
-for (let i = 15; i <= 200; i++) {
-  photoLikes.push(i);
-}
-
-// Определяем константу уникального id для комментариев
-const uniqueCommentsId = [];
-
-// Определяем константу аватара для комментариев
-const commentsAvatarCount = [];
-for (let i = 1; i <= 6; i++) {
-  commentsAvatarCount.push(i);
-}
-
-// Определяем константу сообщения для комментариев
-const commentsMessage = [
+const COMMENT_LINES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -43,17 +36,13 @@ const commentsMessage = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-// Определяем константу имени для комментариев
-const commentsNames = [
-  'Артём',
-  'Оля',
-  'Петя',
-  'Даша',
-  'Саша',
-  'Алёна',
-  'Вася',
-  'Алина',
-];
+const COMMENT_NAMES = ['Петя', 'Оля', 'Артём', 'Даша', 'Саша', 'Алёна', 'Вася', 'Алина',];
+
+const UNIQUE_PHOTO_ID = [];
+
+const UNIQUE_PHOTO_URL = [];
+
+const UNIQUE_COMMENTS_ID = [];
 
 // Получаем рандомное число в заданном диапазоне
 const getRandomInteger = (a, b) => {
@@ -81,19 +70,19 @@ const generateUniqValue = (arr, minElement, maxElement) => {
 
 // Собираем объект комментариев
 const createComments = () => ({
-  id: generateUniqValue(uniqueCommentsId, 1, 100),
-  avatar: `img/avatar-${getRandomArrayElement(commentsAvatarCount)}.svg`,
-  message: getRandomArrayElement(commentsMessage),
-  name: getRandomArrayElement(commentsNames),
+  id: generateUniqValue(UNIQUE_COMMENTS_ID, MIN_COMMENTS_ID_COUNT, MAX_COMMENTS_ID_COUNT),
+  avatar: `img/avatar-${getRandomInteger(MIN_COMMENTS_AVATAR_COUNT, MAX_COMMENTS_AVATAR_COUNT)}.svg`,
+  message: getRandomArrayElement(COMMENT_LINES),
+  name: getRandomArrayElement(COMMENT_NAMES),
 });
 
 // Строим структуру объекта для описания фотографии
 const createPhotoDescription = () => ({
-  id: generateUniqValue(uniquePhotoId, 1, 25),
-  url: `photos/${generateUniqValue(uniquePhotoUrl, 1, 25)}.jpg`,
-  description: getRandomArrayElement(photoDescription),
-  likes: getRandomArrayElement(photoLikes),
-  comments: Array.from({ length: 3 }, createComments),
+  id: generateUniqValue(UNIQUE_PHOTO_ID, MIN_PHOTO_ID_COUNT, MAX_PHOTO_ID_COUNT),
+  url: `photos/${generateUniqValue(UNIQUE_PHOTO_URL, MIN_URL_COUNT, MAX_URL_COUNT)}.jpg`,
+  description: getRandomArrayElement(PHOTO_DESCRIPTIONS),
+  likes: getRandomInteger(MIN_PHOTO_LIKES, MAX_PHOTO_LIKES),
+  comments: Array.from({ length: COMMENT_COUNT }, createComments),
 });
 
 // Создаём массив объектов описания фотографии
