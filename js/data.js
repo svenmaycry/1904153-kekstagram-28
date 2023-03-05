@@ -1,4 +1,4 @@
-import { getRandomArrayElement, generateUniqValue } from './util';
+import { getRandomInteger, getRandomArrayElement, generateUniqValue } from './util';
 
 const SIMILAR_PHOTO_DESCRIPTION_COUNT = 25;
 
@@ -53,7 +53,7 @@ const createPhotoDescription = () => ({
   id: generateUniqValue([], MIN_PHOTO_ID_COUNT, MAX_PHOTO_ID_COUNT),
   url: `photos/${generateUniqValue([], MIN_URL_COUNT, MAX_URL_COUNT)}.jpg`,
   description: getRandomArrayElement(PHOTO_DESCRIPTIONS),
-  likes: generateUniqValue([], MIN_PHOTO_LIKES, MAX_PHOTO_LIKES),
+  likes: getRandomInteger(MIN_PHOTO_LIKES, MAX_PHOTO_LIKES),
   comments: Array.from({ length: COMMENT_COUNT }, createComments),
 });
 
