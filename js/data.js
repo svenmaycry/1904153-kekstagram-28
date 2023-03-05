@@ -1,4 +1,4 @@
-import { getRandomInteger, getRandomArrayElement, generateUniqValue } from './util';
+import { getRandomInteger, getRandomArrayElement, generateUniqValue } from './util.js';
 
 const SIMILAR_PHOTO_DESCRIPTION_COUNT = 25;
 
