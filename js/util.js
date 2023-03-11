@@ -10,16 +10,19 @@ const getRandomInteger = (a, b) => {
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 // Получаем уникальные значения
-const generateUniqValue = (arr, minElement, maxElement) => {
-  let value = getRandomInteger(minElement, maxElement);
-  if (arr.length >= maxElement) {
-    return null;
-  }
-  while (arr.includes(value)) {
-    value = getRandomInteger(minElement, maxElement);
-  }
-  arr.push(value);
-  return value;
+const generateUniqValue = (minElement, maxElement) => {
+  const arr = [];
+  return function () {
+    let value = getRandomInteger(minElement, maxElement);
+    if (arr.length >= maxElement) {
+      return null;
+    }
+    while (arr.includes(value)) {
+      value = getRandomInteger(minElement, maxElement);
+    }
+    arr.push(value);
+    return value;
+  };
 };
 
 export { getRandomInteger, getRandomArrayElement, generateUniqValue };
