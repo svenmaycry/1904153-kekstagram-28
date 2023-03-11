@@ -17,7 +17,7 @@ const MAX_COMMENTS_ID_COUNT = 500;
 const MIN_COMMENTS_AVATAR_COUNT = 1;
 const MAX_COMMENTS_AVATAR_COUNT = 6;
 
-const COMMENT_COUNT = 3;
+const COMMENT_COUNT = 10;
 
 const PHOTO_DESCRIPTIONS = [
   'Не заботьтесь ни о чем, больше улыбайтесь.',
@@ -40,21 +40,23 @@ const COMMENT_LINES = [
 
 const COMMENT_NAMES = ['Петя', 'Оля', 'Артём', 'Даша', 'Саша', 'Алёна', 'Вася', 'Алина',];
 
-// Собираем объект комментариев
+const generatePhotoId = generateUniqValue(MIN_PHOTO_ID_COUNT, MAX_PHOTO_ID_COUNT);
+const generatePhotoUrl = generateUniqValue(MIN_URL_COUNT, MAX_URL_COUNT);
+const generateCommentId = generateUniqValue(MIN_COMMENTS_ID_COUNT, MAX_COMMENTS_ID_COUNT);
+
 const createComments = () => ({
-  id: generateUniqValue([], MIN_COMMENTS_ID_COUNT, MAX_COMMENTS_ID_COUNT),
-  avatar: `img/avatar-${generateUniqValue([], MIN_COMMENTS_AVATAR_COUNT, MAX_COMMENTS_AVATAR_COUNT)}.svg`,
+  id: generateCommentId(),
+  avatar: `img/avatar-${getRandomInteger(MIN_COMMENTS_AVATAR_COUNT, MAX_COMMENTS_AVATAR_COUNT)}.svg`,
   message: getRandomArrayElement(COMMENT_LINES),
   name: getRandomArrayElement(COMMENT_NAMES),
 });
 
-// Строим структуру объекта для описания фотографии
 const createPhotoDescription = () => ({
-  id: generateUniqValue([], MIN_PHOTO_ID_COUNT, MAX_PHOTO_ID_COUNT),
-  url: `photos/${generateUniqValue([], MIN_URL_COUNT, MAX_URL_COUNT)}.jpg`,
+  id: generatePhotoId(),
+  url: `photos/${generatePhotoUrl()}.jpg`,
   description: getRandomArrayElement(PHOTO_DESCRIPTIONS),
   likes: getRandomInteger(MIN_PHOTO_LIKES, MAX_PHOTO_LIKES),
-  comments: Array.from({ length: COMMENT_COUNT }, createComments),
+  comments: Array.from({ length: getRandomInteger(0, COMMENT_COUNT) }, createComments),
 });
 
 // Создаём массив объектов описания фотографии
