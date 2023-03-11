@@ -11,16 +11,16 @@ const getRandomArrayElement = (elements) => elements[getRandomInteger(0, element
 
 // Получаем уникальные значения
 const generateUniqValue = (minElement, maxElement) => {
-  const arr = [];
-  return function () {
+  const previousValues = [];
+  return () => {
     let value = getRandomInteger(minElement, maxElement);
-    if (arr.length >= maxElement) {
+    if (previousValues.length >= maxElement) {
       return null;
     }
-    while (arr.includes(value)) {
+    while (previousValues.includes(value)) {
       value = getRandomInteger(minElement, maxElement);
     }
-    arr.push(value);
+    previousValues.push(value);
     return value;
   };
 };
