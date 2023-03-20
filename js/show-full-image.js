@@ -5,8 +5,8 @@ const openFullImage = (item, data) => {
   item.addEventListener('click', (evt) => {
     evt.preventDefault();
     document.querySelector('body').classList.add('modal-open');
-    document.querySelector('.social__comment-count').classList.add('hidden');
-    document.querySelector('.comments-loader').classList.add('hidden');
+    // document.querySelector('.social__comment-count').classList.add('hidden');
+    // document.querySelector('.comments-loader').classList.add('hidden');
     document.querySelector('.big-picture').classList.remove('hidden');
     document.querySelector('.big-picture .big-picture__img img').setAttribute('src', data.url);
     document.querySelector('.big-picture .likes-count').textContent = data.likes;
@@ -32,4 +32,34 @@ const closeFullImage = () => {
   });
 };
 
-export { openFullImage, closeFullImage };
+
+const VISIBLE_COMMENTS = 5;
+const commentsList = document.querySelector('.social__comments');
+const commentsLoader = document.querySelector('.comments-loader');
+const commentCount = document.querySelector('.social__comment-count');
+
+let shownComments = 0;
+const comments = [];
+
+const renderComments = () => {
+  shownComments += VISIBLE_COMMENTS;
+
+  if (shownComments >= comments.length) {
+    commentsLoader.classList.add('hidden');
+    shownComments = comments.length;
+  } else {
+    commentsLoader.classList.remove('hidden');
+  }
+
+  const fragment = document.createDocumentFragment();
+  for (let i = 0; i < shownComments; i++) {
+    const commentElement = createCommentItem(comments[i]);
+    fragment.append(commentElement);
+  }
+
+  commentsList.innerHTML = '';
+  commentsList.append(fragment);
+  commentCount.innerHTML = `${shownComments} из <span class="comments-count">${comments.length}</span>`;
+};
+
+export { openFullImage, closeFullImage, renderComments };
