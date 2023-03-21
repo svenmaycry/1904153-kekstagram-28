@@ -8,7 +8,7 @@ const commentsLoader = document.querySelector('.comments-loader');
 const commentCount = document.querySelector('.social__comment-count');
 
 let shownComments = 0;
-const comments = [];
+// const comments = [];
 //!!! Функция загрузки комментов
 const renderComments = (data) => {
   shownComments += VISIBLE_COMMENTS;
@@ -30,7 +30,7 @@ const renderComments = (data) => {
 
   commentsList.innerHTML = '';
   commentsList.append(fragment);
-  commentCount.innerHTML = `${shownComments} из <span class="comments-count">${comments.length}</span>`;
+  commentCount.innerHTML = `${shownComments} из <span class="comments-count">${data.comments.length}</span>`;
 };
 
 const openFullImage = (item, data) => {
