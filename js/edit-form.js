@@ -31,6 +31,3 @@ uploadCancel.addEventListener('click', (evt) => {
   evt.preventDefault();
   closeForm();
 });
-
-
-
