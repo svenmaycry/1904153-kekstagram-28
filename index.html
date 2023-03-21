@@ -42,14 +42,14 @@
             </fieldset>
 
             <!-- Форма редактирования изображения -->
-            <div class="img-upload__overlay  hidden">
+            <div class="img-upload__overlay  ">
               <div class="img-upload__wrapper">
                 <div class="img-upload__preview-container">
 
                   <!-- Изменение размера изображения -->
                   <fieldset class="img-upload__scale  scale">
                     <button type="button" class="scale__control  scale__control--smaller">Уменьшить</button>
-                    <input type="text" class="scale__control  scale__control--value" value="55%" title="Image Scale"
+                    <input type="number" class="scale__control  scale__control--value" value="55%" title="Image Scale"
                       name="scale" readonly>
                     <button type="button" class="scale__control  scale__control--bigger">Увеличить</button>
                   </fieldset>
@@ -128,11 +128,11 @@
                 <!-- Добавление хэш-тегов и комментария к изображению -->
                 <fieldset class="img-upload__text text">
                   <div class="img-upload__field-wrapper">
-                    <input type="text" class="text__hashtags" name="hashtags" placeholder="#ХэшТег" required>
+                    <input type="text" class="text__hashtags" name="hashtags" placeholder="#ХэшТег" maxlength="104">
                   </div>
                   <div class="img-upload__field-wrapper">
                     <textarea type="text" class="text__description" name="description" placeholder="Ваш комментарий..."
-                      maxlength="140" required></textarea>
+                      maxlength="140" data-pristine-maxlength-message="Максимальная длина 140 символов"></textarea>
                   </div>
                 </fieldset>
 
@@ -250,6 +250,7 @@
   <template id="messages">
     <div class="img-upload__message  img-upload__message--loading">Загружаем...</div>
   </template>
+  <script src="vendor/pristine/pristine.min.js" type="text/javascript"></script>
   <script src="js/main.js" type="module"></script>
 </body>
 

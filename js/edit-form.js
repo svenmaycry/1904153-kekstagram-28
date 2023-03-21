@@ -1,12 +1,9 @@
 import { isEscapeKey } from './util.js';
 
-// const form = document.querySelector('#upload-select-image');
 const uploadFile = document.querySelector('#upload-file');
 const overlay = document.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
 const uploadCancel = document.querySelector('#upload-cancel');
-// const formHashtags = document.querySelector('.text__hashtags');
-// const formComment = document.querySelector('.text__description');
 
 const openForm = () => {
   overlay.classList.remove('hidden');
@@ -34,3 +31,6 @@ uploadCancel.addEventListener('click', (evt) => {
   evt.preventDefault();
   closeForm();
 });
+
+
+
