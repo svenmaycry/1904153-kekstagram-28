@@ -1,4 +1,4 @@
-import { openFullImage, closeFullImage, renderComments } from './show-full-image.js';
+import { openFullImage, closeFullImage } from './show-full-image.js';
 
 const thumbnailTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const pictures = document.querySelector('.pictures');
@@ -13,7 +13,6 @@ const renderThumbnails = (thumbnail) => {
     thumbnailElement.querySelector('.picture__comments').textContent = element.comments.length;
     thumbnailListFragment.append(thumbnailElement);
     openFullImage(thumbnailElement, element);
-    // renderComments();
     closeFullImage();
   });
   pictures.append(thumbnailListFragment);
