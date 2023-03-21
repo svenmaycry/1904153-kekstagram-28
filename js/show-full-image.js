@@ -23,6 +23,10 @@ const renderComments = (data) => {
     const commentElement = createCommentItem(data.comments[i]);
     fragment.append(commentElement);
   }
+  //??? Если я тут вызываю событие, первый клик комменты открываются по 5 штук, далее по +10??
+  commentsLoader.addEventListener('click', () => {
+    renderComments(data);
+  });
 
   commentsList.innerHTML = '';
   commentsList.append(fragment);
@@ -40,11 +44,11 @@ const openFullImage = (item, data) => {
     document.querySelector('.big-picture .social__caption').textContent = data.description;
     document.querySelector('.social__comments').innerHTML = '';
     //??? Если я сразу вызываю renderComments(data), то при открытии фотографии сразу загружаются 5 комментов, но каждый раз при открытии и закрытии фотографии они прибавляются
-    // renderComments(data);
+    renderComments(data);
     //??? Если я делаю через событие, тогда комменты сразу не показываются и ломается счётчик
-    commentsLoader.addEventListener('click', () => {
-      renderComments(data);
-    });
+    // commentsLoader.addEventListener('click', () => {
+    //   renderComments(data);
+    // });
   });
 };
 
