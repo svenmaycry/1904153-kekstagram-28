@@ -48,7 +48,7 @@ const openFullImage = (item, data) => {
   });
 };
 
-const closeFullImage = () => {
+const closeFullImage = (data) => {
   const closeButton = document.querySelector('.big-picture__cancel');
   window.addEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {
@@ -56,7 +56,9 @@ const closeFullImage = () => {
       document.querySelector('body').classList.remove('modal-open');
       //!!! Обновляю число комментов при закрытии + удаляю событие загрузки
       shownComments = 0;
-      commentsLoader.removeEventListener('click', renderComments);
+      commentsLoader.removeEventListener('click', () => {
+        renderComments(data);
+      });
     }
   });
   closeButton.addEventListener('click', (evt) => {
@@ -65,7 +67,9 @@ const closeFullImage = () => {
     document.querySelector('body').classList.remove('modal-open');
     //!!! Обновляю число комментов при закрытии + удаляю событие загрузки
     shownComments = 0;
-    commentsLoader.removeEventListener('click', renderComments);
+    commentsLoader.removeEventListener('click', () => {
+      renderComments(data);
+    });
   });
 };
 
