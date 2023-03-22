@@ -1,15 +1,12 @@
 import { createCommentItem } from './create-comment.js';
 import { isEscapeKey } from './util.js';
 
-//!!! Все данные для renderComments
-
 const commentsList = document.querySelector('.social__comments');
 const commentsLoader = document.querySelector('.comments-loader');
 const commentCount = document.querySelector('.social__comment-count');
 
 const VISIBLE_COMMENTS = 5;
 let shownComments = 0;
-//!!! Функция загрузки комментов
 
 const renderComments = (data) => {
   shownComments += VISIBLE_COMMENTS;
@@ -30,6 +27,10 @@ const renderComments = (data) => {
   commentCount.innerHTML = `${shownComments} из <span class="comments-count">${data.comments.length}</span>`;
 };
 
+const addSomeComments = (data) => {
+  renderComments(data);
+};
+
 const openFullImage = (item, data) => {
   item.addEventListener('click', (evt) => {
     evt.preventDefault();
@@ -40,11 +41,8 @@ const openFullImage = (item, data) => {
     document.querySelector('.big-picture .comments-count').textContent = data.comments.length;
     document.querySelector('.big-picture .social__caption').textContent = data.description;
     document.querySelector('.social__comments').innerHTML = '';
-    //!!! После загрузки страницы, при открытии первой фотографии, когда нажимаем "загрузить ещё" счётчик и прогрузка комментариев работает нормально, но когда закрываешь фото и открываешь другую, либо эту же, тогда начинается "магия"
     renderComments(data);
-    commentsLoader.addEventListener('click', () => {
-      renderComments(data);
-    });
+    commentsLoader.addEventListener('click', () => addSomeComments(data));
   });
 };
 
@@ -54,22 +52,16 @@ const closeFullImage = (data) => {
     if (isEscapeKey(evt)) {
       document.querySelector('.big-picture').classList.add('hidden');
       document.querySelector('body').classList.remove('modal-open');
-      //!!! Обновляю число комментов при закрытии + удаляю событие загрузки
       shownComments = 0;
-      commentsLoader.removeEventListener('click', () => {
-        renderComments(data);
-      });
     }
+    commentsLoader.removeEventListener('click', () => addSomeComments(data));
   });
   closeButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     document.querySelector('.big-picture').classList.add('hidden');
     document.querySelector('body').classList.remove('modal-open');
-    //!!! Обновляю число комментов при закрытии + удаляю событие загрузки
     shownComments = 0;
-    commentsLoader.removeEventListener('click', () => {
-      renderComments(data);
-    });
+    commentsLoader.removeEventListener('click', () => addSomeComments(data));
   });
 };
 
