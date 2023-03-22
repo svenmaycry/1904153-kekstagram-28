@@ -40,7 +40,7 @@ const openFullImage = (item, data) => {
     document.querySelector('.big-picture .comments-count').textContent = data.comments.length;
     document.querySelector('.big-picture .social__caption').textContent = data.description;
     document.querySelector('.social__comments').innerHTML = '';
-    //??? Если я сразу вызываю renderComments(data), то при открытии фотографии сразу загружаются 5 комментов, но каждый раз при открытии и закрытии фотографии они прибавляются
+    //!!! После загрузки страницы, при открытии первой фотографии, когда нажимаем "загрузить ещё" счётчик и прогрузка комментариев работает нормально, но когда закрываешь фото и открываешь другую, либо эту же, тогда начинается "магия"
     renderComments(data);
     commentsLoader.addEventListener('click', () => {
       renderComments(data);
@@ -54,6 +54,7 @@ const closeFullImage = () => {
     if (isEscapeKey(evt)) {
       document.querySelector('.big-picture').classList.add('hidden');
       document.querySelector('body').classList.remove('modal-open');
+      //!!! Обновляю число комментов при закрытии + удаляю событие загрузки
       shownComments = 0;
       commentsLoader.removeEventListener('click', renderComments);
     }
@@ -62,6 +63,7 @@ const closeFullImage = () => {
     evt.preventDefault();
     document.querySelector('.big-picture').classList.add('hidden');
     document.querySelector('body').classList.remove('modal-open');
+    //!!! Обновляю число комментов при закрытии + удаляю событие загрузки
     shownComments = 0;
     commentsLoader.removeEventListener('click', renderComments);
   });
