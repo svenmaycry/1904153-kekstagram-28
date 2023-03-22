@@ -2,14 +2,15 @@ import { createCommentItem } from './create-comment.js';
 import { isEscapeKey } from './util.js';
 
 //!!! Все данные для renderComments
-const VISIBLE_COMMENTS = 5;
+
 const commentsList = document.querySelector('.social__comments');
 const commentsLoader = document.querySelector('.comments-loader');
 const commentCount = document.querySelector('.social__comment-count');
 
+const VISIBLE_COMMENTS = 5;
 let shownComments = 0;
-// const comments = [];
 //!!! Функция загрузки комментов
+
 const renderComments = (data) => {
   shownComments += VISIBLE_COMMENTS;
   if (shownComments >= data.comments.length) {
@@ -23,10 +24,6 @@ const renderComments = (data) => {
     const commentElement = createCommentItem(data.comments[i]);
     fragment.append(commentElement);
   }
-  //??? Если я тут вызываю событие, первый клик комменты открываются по 5 штук, далее по +10??
-  commentsLoader.addEventListener('click', () => {
-    renderComments(data);
-  });
 
   commentsList.innerHTML = '';
   commentsList.append(fragment);
@@ -45,33 +42,28 @@ const openFullImage = (item, data) => {
     document.querySelector('.social__comments').innerHTML = '';
     //??? Если я сразу вызываю renderComments(data), то при открытии фотографии сразу загружаются 5 комментов, но каждый раз при открытии и закрытии фотографии они прибавляются
     renderComments(data);
-    //??? Если я делаю через событие, тогда комменты сразу не показываются и ломается счётчик
-    // commentsLoader.addEventListener('click', () => {
-    //   renderComments(data);
-    // });
+    commentsLoader.addEventListener('click', () => {
+      renderComments(data);
+    });
   });
 };
 
-const closeFullImage = (data) => {
+const closeFullImage = () => {
   const closeButton = document.querySelector('.big-picture__cancel');
   window.addEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {
       document.querySelector('.big-picture').classList.add('hidden');
       document.querySelector('body').classList.remove('modal-open');
-      //??? Как обновить весь список комментов при закрытии фотографии?
-      commentsLoader.removeEventListener('click', () => {
-        renderComments(data);
-      });
+      shownComments = 0;
+      commentsLoader.removeEventListener('click', renderComments);
     }
   });
   closeButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     document.querySelector('.big-picture').classList.add('hidden');
     document.querySelector('body').classList.remove('modal-open');
-    //??? Как обновить весь список комментов при закрытии фотографии?
-    commentsLoader.removeEventListener('click', () => {
-      renderComments(data);
-    });
+    shownComments = 0;
+    commentsLoader.removeEventListener('click', renderComments);
   });
 };
 
