@@ -44,7 +44,8 @@ const openFullImage = (item, data) => {
     document.querySelector('.social__comments').innerHTML = '';
     renderComments(data);
     //!!! Вешаю обработчик на кнопку при открытии модалки
-    commentsLoader.addEventListener('click', () => addSomeComments(data));
+    commentsLoader.addEventListener('click', () => addSomeComments(data)); //? Если делаю так, то комменты прогружаются нормально, но потом при закрытии фото я не могу у них удалить обработчик. Как это сделать? Проблема - не могу в последствии удалить обработчик.
+    // commentsLoader.addEventListener('click', addSomeComments); //? Если пишу этот код, изначально у меня не отображаются комменты, т.к я не передаю сюда data. Но зато при закрытии фото нормально удаляется обработчик. Проблема - не отображаются комменты.
   });
 };
 
@@ -65,6 +66,7 @@ const closeFullImage = () => {
     shownComments = 0;
     //!!! Не могу нормально удалить обработчик (Если удалять его в браузере вручную, всё работает отлично)
     commentsLoader.removeEventListener('click', addSomeComments);
+
   });
 };
 
