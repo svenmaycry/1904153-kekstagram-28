@@ -55,7 +55,7 @@ const closeFullImage = () => {
       document.querySelector('body').classList.remove('modal-open');
       shownComments = 0;
       //!!! Не могу нормально удалить обработчик (Если удалять его в браузере вручную, всё работает отлично)
-      closeButton.removeEventListener('click', addSomeComments);
+      commentsLoader.removeEventListener('click', addSomeComments);
     }
   });
   closeButton.addEventListener('click', (evt) => {
@@ -64,7 +64,7 @@ const closeFullImage = () => {
     document.querySelector('body').classList.remove('modal-open');
     shownComments = 0;
     //!!! Не могу нормально удалить обработчик (Если удалять его в браузере вручную, всё работает отлично)
-    closeButton.removeEventListener('click', addSomeComments);
+    commentsLoader.removeEventListener('click', addSomeComments);
   });
 };
 
