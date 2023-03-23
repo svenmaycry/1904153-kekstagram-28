@@ -4,6 +4,7 @@ import { isEscapeKey } from './util.js';
 const commentsList = document.querySelector('.social__comments');
 const commentsLoader = document.querySelector('.comments-loader');
 const commentCount = document.querySelector('.social__comment-count');
+const closeButton = document.querySelector('.big-picture__cancel');
 
 const VISIBLE_COMMENTS = 5;
 let shownComments = 0;
@@ -42,26 +43,28 @@ const openFullImage = (item, data) => {
     document.querySelector('.big-picture .social__caption').textContent = data.description;
     document.querySelector('.social__comments').innerHTML = '';
     renderComments(data);
+    //!!! Вешаю обработчик на кнопку при открытии модалки
     commentsLoader.addEventListener('click', () => addSomeComments(data));
   });
 };
 
-const closeFullImage = (data) => {
-  const closeButton = document.querySelector('.big-picture__cancel');
+const closeFullImage = () => {
   window.addEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {
       document.querySelector('.big-picture').classList.add('hidden');
       document.querySelector('body').classList.remove('modal-open');
       shownComments = 0;
+      //!!! Не могу нормально удалить обработчик (Если удалять его в браузере вручную, всё работает отлично)
+      closeButton.removeEventListener('click', addSomeComments);
     }
-    commentsLoader.removeEventListener('click', () => addSomeComments(data));
   });
   closeButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     document.querySelector('.big-picture').classList.add('hidden');
     document.querySelector('body').classList.remove('modal-open');
     shownComments = 0;
-    commentsLoader.removeEventListener('click', () => addSomeComments(data));
+    //!!! Не могу нормально удалить обработчик (Если удалять его в браузере вручную, всё работает отлично)
+    closeButton.removeEventListener('click', addSomeComments);
   });
 };
 
