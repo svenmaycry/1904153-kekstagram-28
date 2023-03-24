@@ -17,7 +17,7 @@ const MAX_COMMENTS_ID_COUNT = 500;
 const MIN_COMMENTS_AVATAR_COUNT = 1;
 const MAX_COMMENTS_AVATAR_COUNT = 6;
 
-const COMMENT_COUNT = 10;
+const COMMENT_COUNT = 30;
 
 const PHOTO_DESCRIPTIONS = [
   'Не заботьтесь ни о чем, больше улыбайтесь.',
