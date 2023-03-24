@@ -8,6 +8,7 @@ const closeButton = document.querySelector('.big-picture__cancel');
 
 const VISIBLE_COMMENTS = 5;
 let shownComments = 0;
+let loadMoreComments = null;
 
 const renderComments = (data) => {
   shownComments += VISIBLE_COMMENTS;
@@ -43,9 +44,8 @@ const openFullImage = (item, data) => {
     document.querySelector('.big-picture .social__caption').textContent = data.description;
     document.querySelector('.social__comments').innerHTML = '';
     renderComments(data);
-    //!!! Вешаю обработчик на кнопку при открытии модалки
-    commentsLoader.addEventListener('click', () => addSomeComments(data)); //? Если делаю так, то комменты прогружаются нормально, но потом при закрытии фото я не могу у них удалить обработчик. Как это сделать? Проблема - не могу в последствии удалить обработчик.
-    // commentsLoader.addEventListener('click', addSomeComments); //? Если пишу этот код, изначально у меня не отображаются комменты, т.к я не передаю сюда data. Но зато при закрытии фото нормально удаляется обработчик. Проблема - не отображаются комменты.
+    loadMoreComments = addSomeComments.bind(null, data);
+    commentsLoader.addEventListener('click', loadMoreComments);
   });
 };
 
@@ -55,8 +55,7 @@ const closeFullImage = () => {
       document.querySelector('.big-picture').classList.add('hidden');
       document.querySelector('body').classList.remove('modal-open');
       shownComments = 0;
-      //!!! Не могу нормально удалить обработчик (Если удалять его в браузере вручную, всё работает отлично)
-      commentsLoader.removeEventListener('click', addSomeComments);
+      commentsLoader.removeEventListener('click', loadMoreComments);
     }
   });
   closeButton.addEventListener('click', (evt) => {
@@ -64,9 +63,7 @@ const closeFullImage = () => {
     document.querySelector('.big-picture').classList.add('hidden');
     document.querySelector('body').classList.remove('modal-open');
     shownComments = 0;
-    //!!! Не могу нормально удалить обработчик (Если удалять его в браузере вручную, всё работает отлично)
-    commentsLoader.removeEventListener('click', addSomeComments);
-
+    commentsLoader.removeEventListener('click', loadMoreComments);
   });
 };
 
