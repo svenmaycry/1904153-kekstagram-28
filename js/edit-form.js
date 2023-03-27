@@ -1,6 +1,6 @@
 import { isEscapeKey } from './util.js';
-// import { resetScale } from './scale.js';
-// import { resetEffects } from './effects.js';
+import { resetScale } from './scale-image.js';
+import { resetEffects } from './effects-image.js';
 
 const MAX_HASHTAGS_COUNT = 5;
 const HASHTAGS_RULES = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -28,8 +28,8 @@ const showModal = () => {
 
 const hideModal = () => {
   form.reset();
-  // resetScale();
-  // resetEffects();
+  resetScale();
+  resetEffects();
   pristine.reset();
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');

@@ -526,6 +526,7 @@ main {
   display: block;
   font-size: 0.85em;
   color: rgb(238, 23, 23);
+  margin: -5px 0px 0px 0px;
 }
 
 /**
