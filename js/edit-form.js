@@ -6,13 +6,20 @@ const MAX_HASHTAGS_COUNT = 5;
 const HASHTAGS_RULES = /^#[a-zа-яё0-9]{1,19}$/i;
 const TAGS_ERROR_TEXT = 'Неправильно прописаны хештеги';
 
-const form = document.querySelector('#upload-select-image');
+const form = document.querySelector('.img-upload__form');
+const submitButton = form.querySelector('.img-upload__submit');
 const hashtagField = document.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
 const fileField = document.querySelector('#upload-file');
 const overlay = document.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
 const cancelButton = document.querySelector('#upload-cancel');
+
+const successElement = document.querySelector('#success').content.querySelector('.success');
+const successButtonElement = document.querySelector('#success').content.querySelector('.success__button');
+
+const errorElement = document.querySelector('#error').content.querySelector('.error');
+const errorButtonElement = document.querySelector('#error').content.querySelector('.error__button');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -74,11 +81,90 @@ pristine.addValidator(
   TAGS_ERROR_TEXT
 );
 
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
+// Разблокировка кнопки формы после получения ответа от сервера
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
+// Блокировка кнопки формы на время ожидания ответа сервера
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикация...';
+};
+
+// Показ сообщения об успешной отправке
+const showSuccessMessage = () => {
+  let flag = false;
+  return () => {
+    if (!flag) {
+      flag = true;
+      document.body.append(successElement);
+    } else {
+      const successElementClone = document.querySelector('.success');
+      successElementClone.classList.remove('hidden');
+    }
+  };
+};
+const showFullSuccessMessage = showSuccessMessage();
+
+const showErrorMessage = () => {
+  let flag = false;
+  return () => {
+    if (!flag) {
+      flag = true;
+      document.body.append(errorElement);
+    } else {
+      const errorElementClone = document.querySelector('.error');
+      errorElementClone.classList.remove('hidden');
+    }
+  };
+};
+const showFullErrorMessage = showErrorMessage();
+
+// Скрыть показ успешной отправки
+const hideSuccessMessageModal = () => {
+  successElement.classList.add('hidden');
+  errorElement.classList.add('hidden');
+};
+
+// Закрытие сообщения об успешной отправке при клике на body
+const closeSuccessWithClickOnBody = (evt) => {
+  evt.stopPropagation();
+  hideSuccessMessageModal();
+};
+
+// Закрытие сообщения об успешной отправке при клике кнопку
+const closeSuccessWithClickOnButton = () => {
+  hideSuccessMessageModal();
+};
+
+// Закрытие сообщения об успешной отправке при нажатии Esc
+const closeSuccessWithPressEsc = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.stopPropagation();
+    hideSuccessMessageModal();
+  }
+};
+
+// Отправка формы
+const onFormSubmit = (cb) => {
+  form.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      successButtonElement.addEventListener('click', closeSuccessWithClickOnButton);
+      errorButtonElement.addEventListener('click', closeSuccessWithClickOnButton);
+      body.addEventListener('keydown', closeSuccessWithPressEsc);
+      body.addEventListener('click', closeSuccessWithClickOnBody);
+      await cb(new FormData(form));
+      unblockSubmitButton();
+    }
+  });
 };
 
 fileField.addEventListener('change', onFileInputChange);
 cancelButton.addEventListener('click', onCancelButtonClick);
-form.addEventListener('submit', onFormSubmit);
+
+export { onFormSubmit, hideModal, showFullSuccessMessage, showFullErrorMessage };
