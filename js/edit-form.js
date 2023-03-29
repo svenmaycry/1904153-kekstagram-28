@@ -122,28 +122,28 @@ const showErrorMessage = () => {
 };
 const showFullErrorMessage = showErrorMessage();
 
-// Скрыть показ успешной отправки
-const hideSuccessMessageModal = () => {
+// Скрыть показ успешной/ошибочной отправки
+const hideModalMessage = () => {
   successElement.classList.add('hidden');
   errorElement.classList.add('hidden');
 };
 
 // Закрытие сообщения об успешной отправке при клике на body
-const closeSuccessWithClickOnBody = (evt) => {
+const closeModalMessageWithClickOnBody = (evt) => {
   evt.stopPropagation();
-  hideSuccessMessageModal();
+  hideModalMessage();
 };
 
 // Закрытие сообщения об успешной отправке при клике кнопку
-const closeSuccessWithClickOnButton = () => {
-  hideSuccessMessageModal();
+const closeModalMessageWithClickOnButton = () => {
+  hideModalMessage();
 };
 
 // Закрытие сообщения об успешной отправке при нажатии Esc
-const closeSuccessWithPressEsc = (evt) => {
+const closeModalMessageWithPressEsc = (evt) => {
   if (isEscapeKey(evt)) {
     evt.stopPropagation();
-    hideSuccessMessageModal();
+    hideModalMessage();
   }
 };
 
@@ -154,10 +154,10 @@ const onFormSubmit = (cb) => {
     const isValid = pristine.validate();
     if (isValid) {
       blockSubmitButton();
-      successButtonElement.addEventListener('click', closeSuccessWithClickOnButton);
-      errorButtonElement.addEventListener('click', closeSuccessWithClickOnButton);
-      body.addEventListener('keydown', closeSuccessWithPressEsc);
-      body.addEventListener('click', closeSuccessWithClickOnBody);
+      successButtonElement.addEventListener('click', closeModalMessageWithClickOnButton);
+      errorButtonElement.addEventListener('click', closeModalMessageWithClickOnButton);
+      body.addEventListener('keydown', closeModalMessageWithPressEsc);
+      body.addEventListener('click', closeModalMessageWithClickOnBody);
       await cb(new FormData(form));
       unblockSubmitButton();
     }
