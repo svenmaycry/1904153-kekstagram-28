@@ -1,8 +1,7 @@
 import { renderThumbnails } from './show-thumbnails.js';
 import { getData, sendData } from './api.js';
 import { showAlert } from './util.js';
-import { onFormSubmit, hideModal } from './edit-form.js';
-import { showFullSuccessMessage, showFullErrorMessage } from './edit-form.js';
+import { onFormSubmit, hideModal, showFullSuccessMessage, showFullErrorMessage } from './edit-form.js';
 
 onFormSubmit(async (data) => {
   try {
