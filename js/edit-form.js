@@ -128,18 +128,18 @@ const hideModalMessage = () => {
   errorElement.classList.add('hidden');
 };
 
-// Закрытие сообщения об успешной отправке при клике на body
+// Закрытие сообщения об успешной/ошибочной отправке при клике на body
 const closeModalMessageWithClickOnBody = (evt) => {
   evt.stopPropagation();
   hideModalMessage();
 };
 
-// Закрытие сообщения об успешной отправке при клике кнопку
+// Закрытие сообщения об успешной/ошибочной отправке при клике кнопку
 const closeModalMessageWithClickOnButton = () => {
   hideModalMessage();
 };
 
-// Закрытие сообщения об успешной отправке при нажатии Esc
+// Закрытие сообщения об успешной/ошибочной отправке при нажатии Esc
 const closeModalMessageWithPressEsc = (evt) => {
   if (isEscapeKey(evt)) {
     evt.stopPropagation();
