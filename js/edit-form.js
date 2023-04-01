@@ -134,7 +134,9 @@ const hideModalMessage = () => {
 // Закрытие сообщения об успешной/ошибочной отправке при клике на body
 const closeModalMessageWithClickOnBody = (evt) => {
   evt.stopPropagation();
-  hideModalMessage();
+  if (evt.target.matches('.success') || evt.target.matches('.error')) {
+    hideModalMessage();
+  }
 };
 
 // Закрытие сообщения об успешной/ошибочной отправке при клике кнопку
@@ -158,8 +160,8 @@ const onFormSubmit = (cb) => {
       blockSubmitButton();
       successButtonElement.addEventListener('click', closeModalMessageWithClickOnButton);
       errorButtonElement.addEventListener('click', closeModalMessageWithClickOnButton);
-      body.addEventListener('keydown', closeModalMessageWithPressEsc);
-      body.addEventListener('click', closeModalMessageWithClickOnBody);
+      document.addEventListener('keydown', closeModalMessageWithPressEsc);
+      document.addEventListener('click', closeModalMessageWithClickOnBody);
       await cb(new FormData(form));
       unblockSubmitButton();
     }
