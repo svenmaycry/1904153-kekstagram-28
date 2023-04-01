@@ -49,7 +49,10 @@ const ifInTextFieldFocused = () =>
 function onDocumentKeydown(evt) {
   if (isEscapeKey(evt) && !ifInTextFieldFocused()) {
     evt.preventDefault();
-    hideModal();
+    const hasHiddenPopup = document.querySelector('.error');
+    if (!hasHiddenPopup) {
+      hideModal();
+    }
   }
 }
 
@@ -142,7 +145,6 @@ const closeModalMessageWithClickOnButton = () => {
 // Закрытие сообщения об успешной/ошибочной отправке при нажатии Esc
 const closeModalMessageWithPressEsc = (evt) => {
   if (isEscapeKey(evt)) {
-    evt.stopPropagation();
     hideModalMessage();
   }
 };
