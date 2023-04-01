@@ -1,3 +1,5 @@
+const ERROR_MESSAGE_DELAY = 5000; //!------------------------------------------------ NEW-------------------//
+
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -24,6 +26,14 @@ const generateUniqValue = (minElement, maxElement) => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
+const debounce = (callback, timeoutDelay) => { //!---------------------------------------NEW-----------------------------//
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
 const showAlert = (message) => {
   const alert = document.createElement('div');
   alert.style.position = 'absolute';
@@ -39,7 +49,7 @@ const showAlert = (message) => {
 
   setTimeout(() => {
     alert.remove();
-  }, 5000);
+  }, ERROR_MESSAGE_DELAY);
 };
 
-export { getRandomInteger, getRandomArrayElement, generateUniqValue, isEscapeKey, showAlert };
+export { getRandomInteger, getRandomArrayElement, generateUniqValue, isEscapeKey, showAlert, debounce };

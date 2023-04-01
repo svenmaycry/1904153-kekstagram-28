@@ -1,7 +1,10 @@
 import { renderThumbnails } from './show-thumbnails.js';
 import { getData, sendData } from './api.js';
-import { showAlert } from './util.js';
+import { showAlert, debounce } from './util.js';
 import { onFormSubmit, hideModal, showFullSuccessMessage, showFullErrorMessage } from './edit-form.js';
+import { initFilterListeners } from './filter.js';
+
+const RENDER_PHOTOS_DELAY = 500; //!--------------------------------------------------NEW---------------------------------------//
 
 onFormSubmit(async (data) => {
   try {
@@ -16,6 +19,7 @@ onFormSubmit(async (data) => {
 try {
   const data = await getData();
   renderThumbnails(data);
+  initFilterListeners(data, debounce(renderThumbnails, RENDER_PHOTOS_DELAY)); //!--------------------------------------------------NEW---------------------------------------//
 } catch (err) {
   showAlert(err.message);
 }

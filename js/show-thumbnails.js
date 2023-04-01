@@ -3,6 +3,7 @@ import { openFullImage, closeFullImage } from './show-full-image.js';
 const thumbnailTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const pictures = document.querySelector('.pictures');
 const thumbnailListFragment = document.createDocumentFragment();
+const imgFiltersElement = document.querySelector('.img-filters');
 
 const renderThumbnails = (thumbnail) => {
   thumbnail.forEach((element) => {
@@ -15,7 +16,12 @@ const renderThumbnails = (thumbnail) => {
     openFullImage(thumbnailElement, element);
     closeFullImage();
   });
+
+  pictures.querySelectorAll('.picture').forEach((element) => { //!--------------------------------------------------NEW---------------------------------------//
+    element.remove();
+  });
   pictures.append(thumbnailListFragment);
+  imgFiltersElement.classList.remove('img-filters--inactive'); //!--------------------------------------------------NEW---------------------------------------//
 };
 
 export { renderThumbnails };
