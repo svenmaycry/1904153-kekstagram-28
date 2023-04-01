@@ -33,6 +33,18 @@ const addSomeComments = (data) => {
   renderComments(data);
 };
 
+const onDocumentKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeFullImage();
+  }
+};
+
+const onClickButtonClose = (evt) => {
+  evt.preventDefault();
+  closeFullImage();
+};
+
 const openFullImage = (item, data) => {
   item.addEventListener('click', (evt) => {
     evt.preventDefault();
@@ -46,25 +58,18 @@ const openFullImage = (item, data) => {
     renderComments(data);
     loadMoreComments = addSomeComments.bind(null, data);
     commentsLoader.addEventListener('click', loadMoreComments);
+    document.addEventListener('keydown', onDocumentKeydown);
+    closeButton.addEventListener('click', onClickButtonClose);
   });
 };
 
-const closeFullImage = () => {
-  window.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      document.querySelector('.big-picture').classList.add('hidden');
-      document.querySelector('body').classList.remove('modal-open');
-      shownComments = 0;
-      commentsLoader.removeEventListener('click', loadMoreComments);
-    }
-  });
-  closeButton.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    document.querySelector('.big-picture').classList.add('hidden');
-    document.querySelector('body').classList.remove('modal-open');
-    shownComments = 0;
-    commentsLoader.removeEventListener('click', loadMoreComments);
-  });
-};
+function closeFullImage() {
+  document.querySelector('.big-picture').classList.add('hidden');
+  document.querySelector('body').classList.remove('modal-open');
+  closeButton.removeEventListener('click', onClickButtonClose);
+  document.removeEventListener('keydown', onDocumentKeydown);
+  shownComments = 0;
+  commentsLoader.removeEventListener('click', loadMoreComments);
+}
 
-export { openFullImage, closeFullImage };
+export { openFullImage };
