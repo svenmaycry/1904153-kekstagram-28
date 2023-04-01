@@ -26,7 +26,7 @@ const renderComments = (data) => {
 
   commentsList.innerHTML = '';
   commentsList.append(fragment);
-  commentCount.innerHTML = `${shownComments} из <span class="comments-count">${data.comments.length}</span>`;
+  commentCount.innerHTML = `${shownComments} из <span class="comments-count">${data.comments.length}</span> комментариев`;
 };
 
 const addSomeComments = (data) => {
