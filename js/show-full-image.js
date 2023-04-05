@@ -5,6 +5,7 @@ const commentsList = document.querySelector('.social__comments');
 const commentsLoader = document.querySelector('.comments-loader');
 const commentCount = document.querySelector('.social__comment-count');
 const closeButton = document.querySelector('.big-picture__cancel');
+const commentsCountElement = document.querySelector('.comments-count');
 
 const VISIBLE_COMMENTS = 5;
 let shownComments = 0;
@@ -26,7 +27,8 @@ const renderComments = (data) => {
 
   commentsList.innerHTML = '';
   commentsList.append(fragment);
-  commentCount.innerHTML = `${shownComments} из <span class="comments-count">${data.comments.length}</span> комментариев`;
+  // commentCount.innerHTML = `${shownComments} из <span class="comments-count">${data.comments.length}</span> комментариев`;
+  commentCount.textContent = `${shownComments} из ${data.comments.length} комментариев`;
 };
 
 const addSomeComments = (data) => {
@@ -52,7 +54,8 @@ const openFullImage = (item, data) => {
     document.querySelector('.big-picture').classList.remove('hidden');
     document.querySelector('.big-picture .big-picture__img img').setAttribute('src', data.url);
     document.querySelector('.big-picture .likes-count').textContent = data.likes;
-    document.querySelector('.big-picture .comments-count').textContent = data.comments.length;
+    // document.querySelector('.big-picture .comments-count').textContent = data.comments.length;
+    commentsCountElement.textContent = item.querySelector('.picture__comments').textContent;
     document.querySelector('.big-picture .social__caption').textContent = data.description;
     document.querySelector('.social__comments').innerHTML = '';
     renderComments(data);

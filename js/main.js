@@ -3,6 +3,7 @@ import { getData, sendData } from './api.js';
 import { showAlert, debounce } from './util.js';
 import { onFormSubmit, hideModal, showFullSuccessMessage, showFullErrorMessage } from './edit-form.js';
 import { initFilterListeners } from './filter.js';
+import './upload-photo.js';
 
 const RENDER_PHOTOS_DELAY = 500;
 
