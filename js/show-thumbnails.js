@@ -16,11 +16,11 @@ const renderThumbnails = (thumbnail) => {
     openFullImage(thumbnailElement, element);
   });
 
-  pictures.querySelectorAll('.picture').forEach((element) => { //!--------------------------------------------------NEW---------------------------------------//
+  pictures.querySelectorAll('.picture').forEach((element) => {
     element.remove();
   });
   pictures.append(thumbnailListFragment);
-  imgFiltersElement.classList.remove('img-filters--inactive'); //!--------------------------------------------------NEW---------------------------------------//
+  imgFiltersElement.classList.remove('img-filters--inactive');
 };
 
 export { renderThumbnails };

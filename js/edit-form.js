@@ -84,19 +84,16 @@ pristine.addValidator(
   TAGS_ERROR_TEXT
 );
 
-// Разблокировка кнопки формы после получения ответа от сервера
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
   submitButton.textContent = 'Опубликовать';
 };
 
-// Блокировка кнопки формы на время ожидания ответа сервера
 const blockSubmitButton = () => {
   submitButton.disabled = true;
   submitButton.textContent = 'Публикация...';
 };
 
-// Показ сообщения об успешной отправке
 const showSuccessMessage = () => {
   let flag = false;
   return () => {
@@ -125,13 +122,11 @@ const showErrorMessage = () => {
 };
 const showFullErrorMessage = showErrorMessage();
 
-// Скрыть показ успешной/ошибочной отправки
 const hideModalMessage = () => {
   successElement.classList.add('hidden');
   errorElement.classList.add('hidden');
 };
 
-// Закрытие сообщения об успешной/ошибочной отправке при клике на body
 const closeModalMessageWithClickOnBody = (evt) => {
   evt.stopPropagation();
   if (evt.target.matches('.success') || evt.target.matches('.error')) {
@@ -139,19 +134,16 @@ const closeModalMessageWithClickOnBody = (evt) => {
   }
 };
 
-// Закрытие сообщения об успешной/ошибочной отправке при клике кнопку
 const closeModalMessageWithClickOnButton = () => {
   hideModalMessage();
 };
 
-// Закрытие сообщения об успешной/ошибочной отправке при нажатии Esc
 const closeModalMessageWithPressEsc = (evt) => {
   if (isEscapeKey(evt)) {
     hideModalMessage();
   }
 };
 
-// Отправка формы
 const onFormSubmit = (cb) => {
   form.addEventListener('submit', async (evt) => {
     evt.preventDefault();

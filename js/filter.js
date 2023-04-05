@@ -1,4 +1,4 @@
-const NUMBER_OF_PHOTOS = 10; //!--------------------------------------------------NEW---------------------------------------//
+const NUMBER_OF_PHOTOS = 10;
 
 const imgFiltersElement = document.querySelector('.img-filters');
 const defaultFilterButton = imgFiltersElement.querySelector('#filter-default');
@@ -40,5 +40,5 @@ const initFilterListeners = (photos, showThumbnails) => {
   });
 };
 
-export { initFilterListeners }; //!--------------------------------------------------NEW---------------------------------------//
+export { initFilterListeners };
 

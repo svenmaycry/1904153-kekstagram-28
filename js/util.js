@@ -1,8 +1,8 @@
-const ERROR_MESSAGE_DELAY = 5000; //!------------------------------------------------ NEW-------------------//
+const ERROR_MESSAGE_DELAY = 5000;
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const debounce = (callback, timeoutDelay) => { //!---------------------------------------NEW-----------------------------//
+const debounce = (callback, timeoutDelay) => {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
