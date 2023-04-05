@@ -27,7 +27,6 @@ const renderComments = (data) => {
 
   commentsList.innerHTML = '';
   commentsList.append(fragment);
-  // commentCount.innerHTML = `${shownComments} из <span class="comments-count">${data.comments.length}</span> комментариев`;
   commentCount.textContent = `${shownComments} из ${data.comments.length} комментариев`;
 };
 
@@ -54,7 +53,6 @@ const openFullImage = (item, data) => {
     document.querySelector('.big-picture').classList.remove('hidden');
     document.querySelector('.big-picture .big-picture__img img').setAttribute('src', data.url);
     document.querySelector('.big-picture .likes-count').textContent = data.likes;
-    // document.querySelector('.big-picture .comments-count').textContent = data.comments.length;
     commentsCountElement.textContent = item.querySelector('.picture__comments').textContent;
     document.querySelector('.big-picture .social__caption').textContent = data.description;
     document.querySelector('.social__comments').innerHTML = '';
